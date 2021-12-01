@@ -1,6 +1,16 @@
-# Personal Site - byronpantoja.com
+# byronpantoja.com
 
-I decided to use Timothy Lin's starter for my blog. It checks all the boxes and it's how I learned to use tailwind! Thanks Tim!
+This is the repo to my website where I want to just document my digital journey as tech enthusiast. I don't want to call my self a full-stack developer, but that is one of my goals -- plan, design, build, test, deploy, iterate.
+
+I'm currently working to help friends and family find effective long term digital business solutions.
+
+So when I talk with other developers and they ask me "What's your stack?", I really don't know how to answer. Yes I studied JavaScript and I'm still learning it -- but from there I choose my stack based on the requirements, how the budget is defined, and whether or not I will be maintaining this solution.
+
+I like learning to code and hope to one day be able to tinker with gadgets and hardware -- something I think would be fun to do with my daughters.
+
+Anyways, that's me.
+
+This repo was cloned from Tim Lin's [tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog). I learned a lot from this repository, definitely worth checking it out!
 
 ## Tailwind Nextjs Starter Blog
 
@@ -14,10 +24,6 @@ This is a [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com
 
 [Go to the tailwind-nextjs-starter-blog repo](https://github.com/timlrx/tailwind-nextjs-starter-blog)
 
-## Support
+## Support timlrx
 
 Using the template? Support this effort by giving a star on Github, sharing your own blog and giving a shoutout on Twitter or be a project [sponsor](https://github.com/sponsors/timlrx).
-
-## Licence
-
-[MIT](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/master/LICENSE) © [Timothy Lin](https://www.timrlx.com)
