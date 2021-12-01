@@ -9,7 +9,7 @@
     "serve": "next start",
     "analyze": "cross-env ANALYZE=true next build",
     "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts",
-    "export": "yarn build && next export",
+    "export": "build && next export",
     "prepare": "husky install"
   },
   "dependencies": {
