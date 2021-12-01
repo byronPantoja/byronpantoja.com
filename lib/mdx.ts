@@ -4,7 +4,11 @@ import matter from 'gray-matter'
 import path from 'path'
 import readingTime from 'reading-time'
 import { visit } from 'unist-util-visit'
+import type { Pluggable } from 'unified'
 import getAllFilesRecursively from './utils/files'
+import { PostFrontMatter } from 'types/PostFrontMatter'
+import { AuthorFrontMatter } from 'types/AuthorFrontMatter'
+import { Toc } from 'types/Toc'
 // Remark packages
 import remarkGfm from 'remark-gfm'
 import remarkFootnotes from 'remark-footnotes'
@@ -16,29 +20,28 @@ import remarkImgToJsx from './remark-img-to-jsx'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeKatex from 'rehype-katex'
-import rehypeCitation from 'rehype-citation'
 import rehypePrismPlus from 'rehype-prism-plus'
 
 const root = process.cwd()
 
-export function getFiles(type) {
+export function getFiles(type: 'blog' | 'authors') {
   const prefixPaths = path.join(root, 'data', type)
   const files = getAllFilesRecursively(prefixPaths)
   // Only want to return blog/path and ignore root, replace is needed to work on Windows
   return files.map((file) => file.slice(prefixPaths.length + 1).replace(/\\/g, '/'))
 }
 
-export function formatSlug(slug) {
+export function formatSlug(slug: string) {
   return slug.replace(/\.(mdx|md)/, '')
 }
 
-export function dateSortDesc(a, b) {
+export function dateSortDesc(a: string, b: string) {
   if (a > b) return -1
   if (a < b) return 1
   return 0
 }
 
-export async function getFileBySlug(type, slug) {
+export async function getFileBySlug<T>(type: 'authors' | 'blog', slug: string | string[]) {
   const mdxPath = path.join(root, 'data', type, `${slug}.mdx`)
   const mdPath = path.join(root, 'data', type, `${slug}.md`)
   const source = fs.existsSync(mdxPath)
@@ -47,18 +50,28 @@ export async function getFileBySlug(type, slug) {
 
   // https://github.com/kentcdodds/mdx-bundler#nextjs-esbuild-enoent
   if (process.platform === 'win32') {
-    process.env.ESBUILD_BINARY_PATH = path.join(root, 'node_modules', 'esbuild', 'esbuild.exe')
+    process.env.ESBUILD_BINARY_PATH = path.join(
+      process.cwd(),
+      'node_modules',
+      'esbuild',
+      'esbuild.exe'
+    )
   } else {
-    process.env.ESBUILD_BINARY_PATH = path.join(root, 'node_modules', 'esbuild', 'bin', 'esbuild')
+    process.env.ESBUILD_BINARY_PATH = path.join(
+      process.cwd(),
+      'node_modules',
+      'esbuild',
+      'bin',
+      'esbuild'
+    )
   }
 
-  const toc = []
+  const toc: Toc = []
 
-  // Parsing frontmatter here to pass it in as options to rehype plugin
-  const { data: frontmatter } = matter(source)
-  const { code } = await bundleMDX(source, {
+  const { frontmatter, code } = await bundleMDX({
+    file: source,
     // mdx imports can be automatically source from the components directory
-    cwd: path.join(root, 'components'),
+    cwd: path.join(process.cwd(), 'components'),
     xdmOptions(options) {
       // this is the recommended way to add custom remark/rehype plugins:
       // The syntax might look weird, but it protects you in case we add/remove
@@ -77,11 +90,7 @@ export async function getFileBySlug(type, slug) {
         rehypeSlug,
         rehypeAutolinkHeadings,
         rehypeKatex,
-        [
-          rehypeCitation,
-          { bibliography: frontmatter?.bibliography, path: path.join(root, 'data') },
-        ],
-        [rehypePrismPlus, { ignoreMissing: true }],
+        [rehypePrismPlus, { ignoreMissing: true }] as Pluggable,
       ]
       return options
     },
@@ -107,14 +116,14 @@ export async function getFileBySlug(type, slug) {
   }
 }
 
-export async function getAllFilesFrontMatter(folder) {
+export async function getAllFilesFrontMatter(folder: 'blog') {
   const prefixPaths = path.join(root, 'data', folder)
 
   const files = getAllFilesRecursively(prefixPaths)
 
-  const allFrontMatter = []
+  const allFrontMatter: PostFrontMatter[] = []
 
-  files.forEach((file) => {
+  files.forEach((file: string) => {
     // Replace is needed to work on Windows
     const fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, '/')
     // Remove Unexpected File
@@ -122,8 +131,9 @@ export async function getAllFilesFrontMatter(folder) {
       return
     }
     const source = fs.readFileSync(file, 'utf8')
-    const { data: frontmatter } = matter(source)
-    if (frontmatter.draft !== true) {
+    const matterFile = matter(source)
+    const frontmatter = matterFile.data as AuthorFrontMatter | PostFrontMatter
+    if ('draft' in frontmatter && frontmatter.draft !== true) {
       allFrontMatter.push({
         ...frontmatter,
         slug: formatSlug(fileName),
