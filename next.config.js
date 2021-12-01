@@ -13,12 +13,6 @@ module.exports = withBundleAnalyzer({
   },
   webpack: (config, { dev, isServer }) => {
     config.module.rules.push({
-      test: /\.md$/,
-      loader: 'frontmatter-markdown-loader',
-      options: { mode: ['react-component'] },
-    })
-
-    config.module.rules.push({
       test: /\.(png|jpe?g|gif|mp4)$/i,
       use: [
         {
