@@ -1,7 +1,7 @@
 const siteMetadata = {
-  title: 'Hello Byron Pantoja',
-  author: 'Byron Pantoja',
-  headerTitle: 'Hello Bee',
+  title: 'byronpantoja.com',
+  author: 'Bee',
+  headerTitle: "So how's life?",
   description: 'Hello world',
   language: 'en-us',
   siteUrl: 'https://byronpantoja.com',

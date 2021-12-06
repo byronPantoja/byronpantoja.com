@@ -5,6 +5,8 @@ import siteMetadata from '@/data/siteMetadata'
 import { getAllFilesFrontMatter } from '@/lib/mdx'
 import formatDate from '@/lib/utils/formatDate'
 
+import SectionContainer from '@/components/SectionContainer'
+
 import NewsletterForm from '@/components/NewsletterForm'
 
 const MAX_DISPLAY = 5
@@ -19,6 +21,16 @@ export default function Home({ posts }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
+      <div className="pt-6 pb-8 space-y-2 md:space-y-5">
+        <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+          You're on only lost if you knew where you were going.
+        </h1>
+        <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
+          Hi and welcome to my small corner of the internet! This is where I share my thoughts. My
+          name is Byron Pantoja and I'm working towards becoming a <strong>professional</strong>{' '}
+          full-stack developer. This is my journey.
+        </p>
+      </div>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
         <div className="pt-6 pb-8 space-y-2 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
@@ -91,11 +103,11 @@ export default function Home({ posts }) {
           </Link>
         </div>
       )}
-      {siteMetadata.newsletter.provider !== '' && (
+      {/* {siteMetadata.newsletter.provider !== '' && (
         <div className="flex items-center justify-center pt-4">
           <NewsletterForm />
         </div>
-      )}
+      )} */}
     </>
   )
 }

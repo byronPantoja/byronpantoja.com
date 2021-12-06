@@ -17,10 +17,10 @@ module.exports = {
         14: '3.5rem',
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        sans: ['Mono', ...defaultTheme.fontFamily.mono],
       },
       colors: {
-        primary: colors.teal,
+        primary: colors.red,
         gray: colors.trueGray,
       },
       typography: (theme) => ({
