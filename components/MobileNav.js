@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Link from './Link'
 import headerNavLinks from '@/data/headerNavLinks'
+import Logo from '@/data/logo.svg'
 
 const MobileNav = () => {
   const [navShow, setNavShow] = useState(false)
