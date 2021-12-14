@@ -15,7 +15,7 @@ const LayoutWrapper = ({ children }) => {
           <div>
             <Link href="/" aria-label="Byron's Blog">
               <div className="items-center justify-between">
-                <div className="m-3 p-3">
+                <div>
                   <Logo />
                 </div>
                 <div className="h-6 text-xs font-semibold sm:block">{siteMetadata.headerTitle}</div>
