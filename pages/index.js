@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -14,6 +12,7 @@ export default function Home() {
             Byron Pantoja
           </p>
           <div className="max-w-xl mt-5 mx-auto text-xl text-gray-500">
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
             <p>I'm an aspiring ReactJS developer currently going through</p>
             <Link href="https://epicreact.dev/" passHref={true}>
               <span className="text-indigo-600">
